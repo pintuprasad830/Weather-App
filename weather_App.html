@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Weather App</title>
+
+    <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+
+    <script>
+
+        function SearchClick(){
+
+            document.querySelector("section").style.display = "block";
+
+
+
+            var cityName = document.getElementById("txtCity").value;
+
+
+
+            var api_url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=92c22030c69b65dbfff85e303f735b55&units=metric`;
+
+
+            fetch(api_url).then(function(response){
+
+                return response.json();
+
+            })
+
+            .then(function(data){
+
+                document.getElementById("lblCity").innerHTML = data.name;
+
+                document.getElementById("lblTemp").innerHTML = `${data.main.temp.toFixed(0)}&deg;C`;
+
+                document.getElementById("lblFeels").innerHTML = `${data.main.feels_like}`;
+
+                document.getElementById("lblHumid").innerHTML = `${data.main.humidity}%`;
+
+            })
+
+
+
+        }
+
+    </script>
+
+</head>
+
+<body class="bg-secondary p-4 d-flex justify-content-center">
+
+    <div class="bg-light rounded rounded-3 p-4" style="width: 600px; height: 450px;">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+            <span class="fs-5 fw-bold">Weather App</span>
+
+            <div>
+
+                <div class="input-group">
+
+                    <input type="text" id="txtCity" class="form-control" placeholder="Your city name">
+
+                    <button onclick="SearchClick()" class="btn btn-dark bi bi-search"></button>
+
+                </div>
+
+            </div>
+
+            <button class="btn bi bi-share"></button>
+
+        </div>
+
+        <section style="display: none;">
+
+            <div class="mt-4 rounded p-4 rounded-4 text-white bg-dark" style="height: 200px;">
+
+            <div class="fs-4 mt-2 fw-bold" id="lblCity"></div>
+
+            <div class="fs-1 fw-bold mt-5" id="lblTemp"></div>
+
+            </div>
+
+            <div class="mt-2 d-flex align-content-center fs-4">
+
+                <div style="width: 90px; height: 100px;" class="bg-light m-2 p-2 text-center rounded rounded-3 shadow">
+
+                    <span class="bi bi-thermometer"></span>
+
+                    <div style="font-size: 10px;">Feels Like</div>
+
+                    <div style="font-size: 14px;" id="lblFeels"></div>
+
+                </div>
+
+                <div style="width: 90px; height: 100px;" class="bg-light m-2 p-2 text-center rounded rounded-3 shadow">
+
+                    <span class="bi bi-droplet"></span>
+
+                    <div style="font-size: 10px;">Humidity</div>
+
+                    <div style="font-size: 14px;" id="lblHumid"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</body>
+
+</html>
